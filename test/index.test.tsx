@@ -161,6 +161,10 @@ describe('useAsyncResult', () => {
     it('simple checks', async () => {
       expectTypeOf(AsyncResult.done("foo")).toMatchTypeOf<AsyncResult<string>>()
       expectTypeOf(AsyncResult.done("foo")).toMatchTypeOf<AsyncResultDone<string>>()
+      expectTypeOf(AsyncResult.pending()).toMatchTypeOf<AsyncResult<string>>()
+      expectTypeOf(AsyncResult.pending()).not.toMatchTypeOf<AsyncResultDone<string>>()
+      expectTypeOf(AsyncResult.empty()).toMatchTypeOf<AsyncResult<string>>()
+      expectTypeOf(AsyncResult.error(42)).toMatchTypeOf<AsyncResult<string>>()
     })
 
     it('AsyncResultNotDone', async () => {
@@ -195,6 +199,15 @@ describe('useAsyncResult', () => {
       // Should not be able to bind to a promise of a different type
       // @ts-expect-error
       result.bind(Promise.resolve("foo"))
+    })
+
+    it('chains', async () => {
+      renderHook(() => useAsyncResult<string>(async () => {
+        if (false as any)
+          return AsyncResult.pending()
+        return "foo"
+      }))
+      cleanup()
     })
 
     it('isAsyncResult asserts type', async () => {

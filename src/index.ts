@@ -222,19 +222,24 @@ export type UseAsyncResult<R> = (
  * ```
  */
 export function useAsyncResult<R=unknown>(
-  getPromise?: () => Promise<R> | Promise<AsyncResult<R>> | null,
+  getPromise?: () => Promise<R | AsyncResult<R>> | AsyncResult<R> | null,
   useEffectOnChangeList: any[]= [],
 ): UseAsyncResult<R> {
   const [ promiseCounter ] = useState({
     count: 0,
   })
 
-  function setPromise(promise: Promise<R> | Promise<AsyncResult<R>> | null) {
+  function setPromise(promise: Promise<R | AsyncResult<R>> | AsyncResult<R> | null) {
     const thisCount = promiseCounter.count + 1
     promiseCounter.count = thisCount
 
     if (!promise) {
       setRes(AsyncResult.empty())
+      return
+    }
+
+    if (AsyncResult.isAsyncResult(promise)) {
+      setRes(promise)
       return
     }
 
