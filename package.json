@@ -1,0 +1,38 @@
+{
+  "name": "react-use-async-result",
+  "author": "David Wolever",
+  "repository": "https://github.com/wolever/react-use-async-result.git",
+  "homepage": "https://github.com/wolever/react-use-async-result",
+  "version": "0.1.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "prepare": "tsdx build"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0"
+  },
+  "module": "dist/react-use-async-result.esm.js",
+  "devDependencies": {
+    "@testing-library/react": "^13.3.0",
+    "@types/jsdom": "^16.2.14",
+    "expect-type": "^0.13.0",
+    "jsdom": "^20.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}
